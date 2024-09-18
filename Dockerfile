@@ -1,16 +1,11 @@
-FROM ubuntu:latest
+FROM python:3.10
 
-# Install Python, pip, git, and cleanup
-RUN apt-get update && apt-get install -y \
-    python3.10 \
-    python3-pip \
-    git \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Install git if needed
+RUN apt-get update && apt-get install -y git
 
 # Upgrade pip and setuptools, and install PyYAML
-RUN pip3 install --upgrade pip setuptools && \
-    pip3 install PyYAML
+RUN pip install --upgrade pip setuptools && \
+    pip install PyYAML
 
 # Copy the necessary files
 COPY feed.py /usr/bin/feed.py
